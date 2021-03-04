@@ -44,7 +44,7 @@
 
     methods: {
       toggleShow () {
-        this.isShow = !this.isShow
+        this.isShow = !this.isShow;
       }
     },
 

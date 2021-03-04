@@ -8,6 +8,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+//利用mock模拟后台返回的数据
 import './mock/mockServer' // 加载mockServer即可
 import loading from './common/imgs/loading.gif'
 import './fiters' // 加载过滤器
@@ -20,7 +21,16 @@ Vue.use(VueLazyload, { // 内部自定义一个指令lazy
 
 new Vue({
   el: '#app',
-  render: h => h(App),
-  router, //使用上vue-router
+  render: h => h(App), //代表把APP这个组件展示出来，等价下面的注释
+  router, //使用上vue-router,等价于：router:router
   store, // 使用上vuex
 })
+
+//等价于
+// new Vue({
+//   el: '#app',
+//   template: '<App/>',
+//   components: {App}，
+//   router,
+//   store,
+// })

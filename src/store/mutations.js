@@ -14,10 +14,12 @@ import {
   INCREMENT_FOOD_COUNT,
   DECREMENT_FOOD_COUNT,
   CLEAR_CART,
-  RECEIVE_SEARCH_SHOPS
+  RECEIVE_SEARCH_SHOPS,
+  UPDATE_CURRENT_SHOP_INDEX
 } from './mutation-types'
 
 export default {
+  // es6的新语法 https://blog.csdn.net/weixin_42243479/article/details/102548619
   [RECEIVE_ADDRESS] (state, {address}) {
     state.address = address
   },
@@ -83,6 +85,11 @@ export default {
   },
 
   [RECEIVE_SEARCH_SHOPS](state, {searchShops}) {
+
     state.searchShops = searchShops
+  },
+  [UPDATE_CURRENT_SHOP_INDEX](state, index) {
+    //console.log('mutation:'+index)
+    state.currentIndex = state.shops[index].id
   },
 }

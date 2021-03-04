@@ -11,6 +11,8 @@
 <script>
   export default {
     props: {
+      //注意：food中的count属性是该组件自己定义加上去的，并且需要把更改提交到vuex的state中，因为food组件在父组件通过...mapstate[]得到时
+      //用的是深拷贝
       food: Object
     },
 
@@ -21,7 +23,6 @@
     }
   }
 </script>
-
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixins.styl"
   .cartcontrol

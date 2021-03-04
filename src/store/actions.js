@@ -13,7 +13,7 @@ import {
   INCREMENT_FOOD_COUNT,
   DECREMENT_FOOD_COUNT,
   CLEAR_CART,
-  RECEIVE_SEARCH_SHOPS
+  RECEIVE_SEARCH_SHOPS, UPDATE_CURRENT_SHOP_INDEX
 } from './mutation-types'
 import {
   reqAddress,
@@ -29,6 +29,9 @@ import {
 
 export default {
   // 异步获取地址
+  // 下面函数的参数是es6中的解构参数，代表该函数接受的对象参数，应该要包含commit和state属性
+  //asyn/await的主要作用是让 await+表达式 下面的代码在表达式中异步操作完成后才执行
+  //下面在获取数据时，基本上都是异步的，但是在提交更改时，用的都是同步的，比如更新购物车中食物的数量
   async getAddress({commit, state}) {
     // 发送异步ajax请求
     const geohash = state.latitude + ',' + state.longitude
@@ -86,8 +89,9 @@ export default {
   },
 
   // 异步获取商家信息
-  async getShopInfo({commit}) {
-    const result = await reqShopInfo()
+  async getShopInfo({commit, state}) {
+    const index= state.currentIndex
+    const result = await reqShopInfo(index)
     if (result.code === 0) {
       const info = result.data
       commit(RECEIVE_INFO, {info})
@@ -95,8 +99,8 @@ export default {
   },
 
   // 异步获取商家评价列表
-  async getShopRatings({commit}, callback) {
-    const result = await reqShopRatings()
+  async getShopRatings({commit, state}, callback) {
+    const result = await reqShopRatings(state.currentIndex)
     if (result.code === 0) {
       const ratings = result.data
       commit(RECEIVE_RATINGS, {ratings})
@@ -106,8 +110,8 @@ export default {
   },
 
   // 异步获取商家商品列表
-  async getShopGoods({commit}, callback) {
-    const result = await reqShopGoods()
+  async getShopGoods({commit, state}, callback) {
+    const result = await reqShopGoods(state.currentIndex)
     if (result.code === 0) {
       const goods = result.data
       commit(RECEIVE_GOODS, {goods})
@@ -139,5 +143,12 @@ export default {
       const searchShops = result.data
       commit(RECEIVE_SEARCH_SHOPS, {searchShops})
     }
+  },
+
+  //同步更新当前点击商家的index
+  updateShopCurrentIndex({commit}, index) {
+    //console.log('action:'+index)
+      commit(UPDATE_CURRENT_SHOP_INDEX, index)
+
   },
 }

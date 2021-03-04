@@ -4,7 +4,7 @@
  */
 import ajax from './ajax'
 const BASE_URL = 'http://localhost:4000'
- //const BASE_URL = '/api'
+//  const BASE_URL = '/api'
 
 // 1、根据经纬度获取位置详情
 export const reqAddress = (geohash) => ajax(`${BASE_URL}/position/${geohash}`)
@@ -26,9 +26,9 @@ export const reqUserInfo = () => ajax(BASE_URL+'/userinfo')
 export const reqLogout = () => ajax(BASE_URL+'/logout')
 
 /**
- * 获取商家信息
+ * 利用mock获取商家信息
  */
-export const reqShopInfo = () => ajax('/info')
+export const reqShopInfo = (index) => ajax('/info')
 
 /**
  * 获取商家评价数组
@@ -39,5 +39,22 @@ export const reqShopRatings = () => ajax('/ratings')
  * 获取商家商品数组
  */
 export const reqShopGoods = () => ajax('/goods')
+
+
+
+/**
+ * 从服务器获取商家信息
+ */
+// export const reqShopInfo = (index) => ajax(BASE_URL+'/info?id='+index)
+//
+// /**
+//  * 获取商家评价数组
+//  */
+// export const reqShopRatings = (index) => ajax(BASE_URL+'/ratings?id='+index)
+//
+// /**
+//  * 获取商家商品数组
+//  */
+// export const reqShopGoods = (index) => ajax(BASE_URL+'/goods?id='+index)
 
 

@@ -2,7 +2,7 @@
   <div class="shop_container">
     <ul class="shop_list" v-if="shops.length">
       <li class="shop_li border-1px" v-for="(shop, index) in shops"
-          :key="index" @click="$router.push('/shop')">
+          :key="index" @click="shopclick(index)">
         <a>
           <div class="shop_left">
             <img class="shop_img" :src="baseImgUrl+shop.image_path">
@@ -62,6 +62,17 @@
     computed: {
       ...mapState(['shops'])
     },
+
+    methods:{
+      shopclick(index){
+        this.$store.dispatch('updateShopCurrentIndex',index)
+        //这里加this而不像模板中直接$router调用，是因为，此时在shopclick()函数中，这里的作用域中（包括上级作用域中）不存在
+        //$router属性，所以加上this，代表谁调用它，this就指向谁（正好是模板中的元素在被点击中调用）
+        this.$router.push('/shop')
+      }
+
+    },
+
     components: {
       Star
     }

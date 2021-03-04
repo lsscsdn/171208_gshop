@@ -15,8 +15,10 @@ const Search = () => import('../pages/Search/Search.vue')
 const Order = () => import('../pages/Order/Order.vue')
 const Profile = () => import('../pages/Profile/Profile.vue')
 
+
 import Login from '../pages/Login/Login.vue'
 import Shop from '../pages/Shop/Shop.vue'
+import categoryShopList from '../pages/Shop/categoryShopList.vue'
 import ShopGoods from '../pages/Shop/ShopGoods/ShopGoods.vue'
 import ShopRatings from '../pages/Shop/ShopRatings/ShopRatings.vue'
 import ShopInfo from '../pages/Shop/ShopInfo/ShopInfo.vue'
@@ -41,6 +43,15 @@ export default new VueRouter({
         showFooter: true
       }
     },
+
+    {
+      path: '/categoryShopList',
+      component: categoryShopList,
+      meta: {
+        showFooter: false
+      }
+    },
+
     {
       path: '/order',
       component: Order,

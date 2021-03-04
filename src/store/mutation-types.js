@@ -18,5 +18,8 @@ export const CLEAR_CART = 'clear_cart' // 清空购物车
 export const RECEIVE_SEARCH_SHOPS = 'receive_search_shops' // 接收搜索的商家数组
 
 
+export const UPDATE_CURRENT_SHOP_INDEX = 'update_current_shop_index' // 更新当前shop的index
+
+
 
 

@@ -5,6 +5,7 @@
       <router-link class="header_search" slot="left" to="/search">
         <i class="iconfont icon-sousuo"></i>
       </router-link>
+
       <router-link class="header_login" slot="right" :to="userInfo._id ? '/userinfo': '/login'">
         <span class="header_login_text" v-if="!userInfo._id">
           登录|注册
@@ -20,7 +21,7 @@
         <nav class="msite_nav">
           <div class="swiper-container" v-if="categorys.length">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" v-for="(categorys, index) in categorysArr" :key="index">
+              <div class="swiper-slide" v-for="(categorys, index) in categorysArr" :key="index" @click="categoryClick(index)">
                 <a href="javascript:" class="link_to_food" v-for="(category, index) in categorys" :key="index">
                   <div class="food_container">
                     <img :src="baseImageUrl+category.image_url">
@@ -72,6 +73,7 @@
     },
 
     computed: {
+      // 注意mapstate放在computed中
       ...mapState(['address', 'categorys', 'userInfo']),
 
       /*
@@ -102,6 +104,11 @@
       }
     },
 
+    methods:{
+      categoryClick(index){
+        this.$router.push('/categoryShopList')
+      }
+    },
     watch: {
       categorys (value) { // categorys数组中有数据了, 在异步更新界面之前执行
         // 使用setTimeout可以实现效果, 但不是太好
@@ -116,7 +123,8 @@
           })
         }, 100)*/
 
-        // 界面更新就立即创建Swiper对象
+        // 界面更新就立即创建Swiper对象，注意这个this是在 categorys (value)中调用的，而category函数是Vue实例
+        //调用的，所以这里的this是该vue实例对象
         this.$nextTick(() => {// 一旦完成界面更新, 立即调用(此条语句要写在数据更新之后)
           // 创建一个Swiper实例对象, 来实现轮播
           new Swiper('.swiper-container', {

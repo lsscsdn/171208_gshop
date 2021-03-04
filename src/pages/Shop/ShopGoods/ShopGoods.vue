@@ -57,16 +57,17 @@
   import Food from '../../../components/Food/Food.vue'
   import ShopCart from '../../../components/ShopCart/ShopCart.vue'
 
-
   export default {
     data() {
       return {
         scrollY: 0, // 右侧滑动的Y轴坐标 (滑动过程时实时变化)
         tops: [], // 所有右侧分类li的top组成的数组  (列表第一次显示后就不再变化)
         food: {}, // 需要显示的food
+        show:false,
       }
     },
     mounted() {
+      // 这里是向后台请求数据到vuex中
       this.$store.dispatch('getShopGoods', () => {// 数据更新后执行
         this.$nextTick(() => { // 列表数据更新显示后执行
 
@@ -77,6 +78,8 @@
 
     },
     computed: {
+      // 这里是把vuex中state的数据映射到组件中使用，下句代码中的作用是把state中的goods数据映射到
+      //组件中，还叫goods
       ...mapState(['goods']),
 
       // 计算得到当前分类的下标
@@ -144,14 +147,14 @@
         const scrollY = this.tops[index]
         // 立即更新scrollY(让点击的分类项成为当前分类)
         this.scrollY = scrollY
-        // 平滑滑动右侧列表
+        // 平滑滑动右侧列表,下面这个scrollTo是组件的方法
         this.foodsScroll.scrollTo(0, -scrollY, 300)
       },
 
       // 显示点击的food
       showFood (food) {
         // 设置food
-        this.food = food
+        this.food = food;
         // 显示food组件 (在父组件中调用子组件对象的方法)
         this.$refs.food.toggleShow()
       }

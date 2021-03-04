@@ -9,6 +9,7 @@
         </div>
       </div>
       <div class="login_content">
+        <!--阻止form表单默认跳转-->
         <form @submit.prevent="login">
           <div :class="{on: loginWay}">
             <section class="login_message">
@@ -41,10 +42,11 @@
               </section>
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
-                <!--<img class="get_verification" src="http://localhost:4000/captcha" alt="captcha"-->
-                  <!--@click="getCaptcha" ref="captcha">-->
-                <img class="get_verification" src="http://172.16.117.213:4004/captcha/" alt="captcha"
-                     @click="getCaptcha" ref="captcha">
+                <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha"
+                  @click="getCaptcha" ref="captcha">
+                <!--访问王东电脑-->
+                <!--<img class="get_verification" src="http://172.16.117.213:4004/captcha/" alt="captcha"-->
+                     <!--@click="getCaptcha" ref="captcha">-->
               </section>
             </section>
           </div>
@@ -57,6 +59,7 @@
       </a>
     </div>
 
+    <!--本来普通的点击事件是@click,现在是@closeTip，说明这里在等待着子组件的$emit-->
     <AlertTip :alertText="alertText" v-show="alertShow" @closeTip="closeTip"/>
   </section>
 </template>
@@ -169,6 +172,7 @@
           this.intervalId = undefined
         }
 
+
         // 根据结果数据处理
         if(result.code===0) {
           const user = result.data
@@ -192,7 +196,7 @@
       // 获取一个新的图片验证码
       getCaptcha () {
         // 每次指定的src要不一样
-        this.$refs.captcha.src = 'http://172.16.117.213:4004/captcha?time='+Date.now()
+        this.$refs.captcha.src = 'http://localhost:4000/captcha?time='+Date.now()
 
       }
     },
